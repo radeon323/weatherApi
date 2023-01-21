@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <#include "/html_parts/head_part.html">
+    <title>Authorization page</title>
+</head>
+<body>
+
+<div class="container">
+    </br>
+    <h1 align="center">Authorization page</h1>
+    </br>
+
+
+    <form action="/login" method="POST">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-auto col-lg-3">
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+            </div>
+        </div>
+        </br>    </br>
+        <div class="row justify-content-center">
+
+            <div class="col-md-auto col-lg-3">
+                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password">
+            </div>
+        </div>
+        <div class="container" align="center" style="width: 40%">
+            </br></br>
+                <div class="row justify-content-center">
+                    <div class="col-md-auto col-lg-3">
+                        <button class="btn btn-outline-dark" type="submit" style="width: 100px">Login</button>
+                    </div>
+
+                    <div class="col-md-auto col-lg-3">
+                        <a href='/register' type="button" class="btn btn-outline-dark" style="width: 100px">Register</a>
+                    </div>
+                </div>
+        </div>
+
+        <#if msgSuccess??>
+        <div class="container" align="center">
+            </br></br>
+            <p align="center"><strong>${msgSuccess}</strong></p>
+        </div>
+        <#elseif errorMsg??>
+        <div class="container" align="center">
+            </br></br>
+            <p align="center"><strong>${errorMsg}</strong></p>
+        </div>
+        <#else>
+        </#if>
+
+    </form>
+
+
+</div>
+<#include "/html_parts/footer_script.html">
+</body>
+</html>
+
+

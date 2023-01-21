@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <#include "/html_parts/head_part.html">
+    <title>Weather.now</title>
+</head>
+<body>
+<#include "/html_parts/header.html">
+<br>
+<div class="row justify-content-center display-2 text-danger">
+    <div class="col-md-auto col-lg-3" >
+        Weather.now
+    </div>
+</div>
+<br>
+<#if user??>
+<div class="row">
+    <div class="d-flex justify-content-center">
+        <div class="p-2">
+            <#if weather??>
+            Current location: <strong>${weather.userSettings.city}</strong>
+            <#else>
+            Location not chosen.
+            </#if>
+        </div>
+        <div class="p-2 " >
+            <#if weather??>
+                Current weather API: <strong>${weather.userSettings.weatherProviderName}</strong>
+            <#else>
+                Weather API not chosen.
+            </#if>
+        </div>
+    </div>
+</div>
+
+<div class="container ">
+
+    <form action="/weather" method="POST">
+        <div class="d-flex justify-content-center">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <input type="radio" class="btn-check" name="disabled" id="disabled" autocomplete="off" disabled>
+                <label class="btn btn-dark" for="disabled" >Choose weather API:</label>
+
+                <input type="radio" class="btn-check" name="weatherProviderName" id="OpenWeatherMap" autocomplete="off" value="OPENWEATHERMAP">
+                <label class="btn btn-secondary" for="OpenWeatherMap">OpenWeatherMap</label>
+
+                <input type="radio" class="btn-check" name="weatherProviderName" id="WeatherApi" autocomplete="off" value="WEATHERAPI">
+                <label class="btn btn-secondary" for="WeatherApi">WeatherApi</label>
+            </div>
+        </div>
+        </br>
+        <div class="row justify-content-center">
+            <div class="col-md-auto col-lg-3">
+                <div class="input-group mb-3">
+                    <input name="city" id="city" type="text" class="form-control" placeholder="Enter city:" aria-label=" " aria-describedby=" ">
+                </div>
+            </div>
+        </div>
+        </br>
+
+        <div class="row justify-content-center form-inline">
+            <div class="col-auto">
+                <input class="form-check-input" type="checkbox" id="temperature" name="temperature" value="true">
+                <label class="form-check-label" for="temperature">Temperature</label><br>
+            </div>
+            <div class="col-auto">
+                <input class="form-check-input" type="checkbox" id="humidity" name="humidity" value="true">
+                <label class="form-check-label" for="humidity">Humidity</label><br>
+            </div>
+            <div class="col-auto">
+                <input class="form-check-input" type="checkbox" id="windSpeed" name="windSpeed" value="true">
+                <label class="form-check-label" for="windSpeed">Wind speed</label><br>
+            </div>
+            <div class="col-auto">
+                <input class="form-check-input" type="checkbox" id="clouds" name="clouds" value="true">
+                <label class="form-check-label" for="clouds">Clouds</label><br>
+            </div>
+        </div>
+        </br>
+        <div class="row justify-content-center">
+            <div class="col-md-auto col-lg-3" align="center">
+                <button class="btn btn btn-outline-dark" type="submit">Submit!</button>
+            </div>
+        </div>
+            </br></br>
+    </form>
+
+    <#if weather??>
+    <div class="d-flex justify-content-center flex-wrap  display-4 gap-3" >
+        <#if weather.userSettings.temperature = true>
+        <div class="p-2 bg-warning rounded-3 border-dark" style="display: inline-flex;"> <iconify-icon icon="carbon:temperature-celsius" width="60" height="60"></iconify-icon> <strong> ${weather.temperature}&#186;C</strong></div>
+        <#else></#if>
+
+        <#if weather.userSettings.humidity = true>
+        <div class="p-2 bg-info rounded-3 border-dark" style="display: inline-flex;"> <iconify-icon icon="material-symbols:humidity-percentage-outline-rounded" width="60" height="60"> </iconify-icon> <strong> ${weather.humidity}%</strong></div>
+        <#else></#if>
+
+        <#if weather.userSettings.windSpeed = true>
+        <div class="p-2 bg-success text-white rounded-3 border-dark" style="display: inline-flex;"> <iconify-icon icon="bi:wind" width="60" height="60"> </iconify-icon> <strong> ${weather.wind_speed}m/s</strong></div>
+        <#else></#if>
+
+        <#if weather.userSettings.clouds = true>
+        <div class="p-2 bg-primary text-white rounded-3 border-dark" style="display: inline-flex;"> <iconify-icon icon="mdi:clouds" width="60" height="60"> </iconify-icon> <strong> ${weather.clouds}%</strong></div>
+        <#else></#if>
+    </div>
+    <#else>
+    </br></br>
+
+        <#if errorMsg??>
+            <h5 align="center">${errorMsg}</h5>
+        <#else>
+            <h5 align="center">Enter the city name and choose the weather API</h5>
+        </#if>
+
+    </#if>
+    </div>
+<#else>
+<h5 align="center">Please, log in to have access to weather service</h5>
+</#if>
+<#include "/html_parts/footer_script.html">
+</body>
+</html>
